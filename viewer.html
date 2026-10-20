@@ -10,7 +10,7 @@
     html, body {
       background: #0b1329;
       color: #f8fafc;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Tamil", sans-serif;
       height: 100%;
       width: 100%;
       overflow: hidden;
@@ -18,20 +18,21 @@
       flex-direction: column;
     }
 
-    /* Google Drive Style Unified Top Header Bar */
+    /* Enterprise Glassmorphic Header Toolbar */
     .viewer-header-bar {
       height: 52px;
       min-height: 52px;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 14px;
       z-index: 100;
       user-select: none;
-      gap: 12px;
+      gap: 8px;
     }
 
     .header-left {
@@ -41,69 +42,93 @@
       min-width: 140px;
       overflow: hidden;
     }
-    .doc-icon {
-      font-size: 18px;
+    .doc-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
     .doc-title {
       font-size: 13.5px;
       font-weight: 700;
-      color: #e2e8f0;
+      color: #f1f5f9;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 240px;
+      max-width: 220px;
     }
 
-    /* Centered Zoom Controls */
+    /* Centered Zoom & Responsive Fit Controls */
     .header-center {
       display: flex;
       align-items: center;
       background: rgba(30, 41, 59, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
-      padding: 3px 10px;
-      gap: 6px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      padding: 2px 6px;
+      gap: 3px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
     }
     .tool-btn {
       background: transparent;
       border: none;
       color: #94a3b8;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       padding: 5px 10px;
-      border-radius: 6px;
+      border-radius: 999px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 5px;
       transition: all 0.15s ease;
+      white-space: nowrap;
     }
     .tool-btn:hover {
-      background: #334155;
+      background: rgba(255, 255, 255, 0.1);
       color: #ffffff;
     }
+    .tool-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(2, 132, 199, 0.5);
+    }
     .zoom-text {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       color: #38bdf8;
       min-width: 44px;
       text-align: center;
     }
 
-    /* Right Action Buttons (Drive Style Pop-out, Download, Fullscreen) */
+    /* Standalone Navigation Arrows (Prev / Next Page) */
+    .nav-page-group {
+      display: none; /* Shown ONLY when opened in standalone full tab! */
+      align-items: center;
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 2px 6px;
+      gap: 3px;
+    }
+
+    /* Right Action Buttons (Fullscreen, Download, Pop-out) */
     .header-right {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
     .icon-action-btn {
       background: transparent;
       border: none;
       color: #94a3b8;
-      font-size: 16px;
-      width: 36px;
-      height: 36px;
+      font-size: 15px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
@@ -112,14 +137,18 @@
       transition: all 0.15s ease;
     }
     .icon-action-btn:hover {
-      background: #1e293b;
+      background: rgba(255, 255, 255, 0.1);
       color: #38bdf8;
     }
+    .icon-action-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
     .status-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: #eab308; /* Yellow = fetching, Green = cached in phone memory */
+      background: #eab308; /* Yellow = fetching, Green = cached */
       margin: 0 4px;
       transition: background 0.3s ease;
     }
@@ -127,20 +156,19 @@
       background: #10b981;
     }
 
-    /* Scrollable 2D Viewport (Full Vertical & Horizontal Scroll) */
+    /* 2D Scroll Area (Full Vertical & Horizontal Scroll) */
     .viewport-scroll-area {
       flex: 1;
       width: 100%;
       height: calc(100% - 52px);
-      overflow: auto; /* Both vertical & horizontal scroll enabled! */
+      overflow: auto; /* Both scrollbars active! */
       position: relative;
       background: #0b1329;
       display: flex;
-      padding: 24px 16px 40px 16px;
+      padding: 20px 14px 36px 14px;
       -webkit-overflow-scrolling: touch;
     }
 
-    /* Custom Sleek Scrollbars */
     .viewport-scroll-area::-webkit-scrollbar {
       width: 10px;
       height: 10px;
@@ -157,16 +185,15 @@
       background: #475569;
     }
 
-    /* Centered Canvas Container with Mouse Drag & Touch Pan */
+    /* Canvas Wrapper & 2D Pan */
     .canvas-wrapper {
-      margin: auto; /* Auto margin centers when small, allows 2D scroll when big! */
+      margin: auto;
       position: relative;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-      border-radius: 4px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75);
+      border-radius: 6px;
       background: #ffffff;
       line-height: 0;
       transition: box-shadow 0.2s ease;
-      cursor: default;
     }
     .canvas-wrapper.draggable {
       cursor: grab;
@@ -177,7 +204,7 @@
 
     canvas {
       display: block;
-      border-radius: 4px;
+      border-radius: 6px;
     }
 
     /* Loading Skeleton */
@@ -189,8 +216,8 @@
       align-items: center;
       justify-content: center;
       background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(4px);
-      border-radius: 4px;
+      backdrop-filter: blur(6px);
+      border-radius: 6px;
       transition: opacity 0.3s ease;
       gap: 12px;
       z-index: 10;
@@ -219,32 +246,40 @@
 </head>
 <body>
 
-  <!-- Google Drive Style Top Header -->
+  <!-- Enterprise Glassmorphic Header -->
   <header class="viewer-header-bar">
     <div class="header-left">
-      <span class="doc-icon">📄</span>
-      <span class="doc-title" id="docTitle">அசல் பாடநூல் பக்கம்</span>
+      <span class="doc-badge">தமிழ்நாடு</span>
+      <span class="doc-title" id="docTitle">அரசுப் பாடநூல்</span>
     </div>
 
-    <!-- Centered Zoom & Fit Controls -->
+    <!-- Standalone Book Page Navigation (Shown ONLY in Standalone Tab!) -->
+    <div class="nav-page-group" id="navPageGroup">
+      <button class="tool-btn" id="btnPrevPage" onclick="navigatePage(-1)" title="முந்தைய பக்கம் (Previous Page)">◀ முந்தையது</button>
+      <span class="zoom-text" id="pageIndicator" style="color:#f8fafc; font-size:12px;">பக்கம்</span>
+      <button class="tool-btn" id="btnNextPage" onclick="navigatePage(1)" title="அடுத்த பக்கம் (Next Page)">அடுத்தது ▶</button>
+    </div>
+
+    <!-- Centered Zoom & Responsive Fit Controls -->
     <div class="header-center">
       <button class="tool-btn" onclick="zoomChange(-0.25)" title="ஜூம் குறை (-)">&minus;</button>
       <span class="zoom-text" id="zoomLabel">100%</span>
       <button class="tool-btn" onclick="zoomChange(0.25)" title="ஜூம் அதிகரி (+)">&plus;</button>
-      <button class="tool-btn" onclick="fitToWidth()" title="திரைக்கு ஏற்ப பொருத்து">⤢ திரையளவு</button>
-      <button class="tool-btn" onclick="resetZoom()" title="இயல்பு நிலை (100%)">↺ 100%</button>
+      <button class="tool-btn active" id="btnFitWidth" onclick="toggleFitToWidth()" title="திரையளவு தானாகப் பொருந்துதல் (Auto Fit Width)">⤢ திரையளவு</button>
+      <button class="tool-btn" onclick="resetZoom(1.0)" title="100% இயல்பு நிலை">100%</button>
     </div>
 
-    <!-- Right Actions: Drive Style Pop-out, Fullscreen, Download -->
+    <!-- Right Actions -->
     <div class="header-right">
       <span class="status-dot" id="cacheStatusDot" title="ஆஃப்லைன் சேமிப்பு நிலை"></span>
       <button class="icon-action-btn" onclick="downloadPdf()" title="PDF கோப்பைப் பதிவிறக்கு (Download)">⬇️</button>
-      <button class="icon-action-btn" onclick="toggleFullscreen()" title="முழுத்திரை (Fullscreen)">⛶</button>
-      <button class="icon-action-btn" onclick="openPopoutNewTab()" title="புதிய தாவலில் திற (Open in new tab / Pop-out)">↗️</button>
+      <button class="icon-action-btn" onclick="smartFullscreen()" title="முழுத்திரை (Fullscreen)">⛶</button>
+      <!-- Pop-out button (Visible ONLY when inside an iframe/Blogger; hidden in standalone tab!) -->
+      <button class="icon-action-btn" id="btnPopout" onclick="openPopoutNewTab()" title="புதிய தாவலில் திற (Open in new tab / Pop-out)">↗️</button>
     </div>
   </header>
 
-  <!-- 2D Scroll Area (Vertical + Horizontal Scrollbars) -->
+  <!-- 2D Viewport Scroll Area -->
   <main class="viewport-scroll-area" id="scrollArea">
     <div class="canvas-wrapper" id="canvasWrapper">
       <div class="loading-overlay" id="loadingOverlay">
@@ -263,20 +298,43 @@
     const pdfUrl = params.get('pdf') || './tamil/term1/iel_1/01_inbatamil/page_02.pdf';
     const customTitle = params.get('title');
 
+    // Check if embedded in iframe or running standalone
+    const isEmbedded = (window.self !== window.top);
+    const btnPopout = document.getElementById('btnPopout');
+    const navPageGroup = document.getElementById('navPageGroup');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const btnPrevPage = document.getElementById('btnPrevPage');
+    const btnNextPage = document.getElementById('btnNextPage');
+
+    let currentPageNum = 1;
+    const match = pdfUrl.match(/page_(\d+)\.pdf/);
+    if (match) {
+      currentPageNum = parseInt(match[1]);
+    }
+
+    if (isEmbedded) {
+      // Inside Blogger or iframe: Show pop-out, hide standalone page turners
+      btnPopout.style.display = 'flex';
+      navPageGroup.style.display = 'none';
+    } else {
+      // Standalone new tab: HIDE pop-out (no duplicate!) & SHOW page turners!
+      btnPopout.style.display = 'none';
+      navPageGroup.style.display = 'flex';
+      pageIndicator.textContent = `பக்கம் ${currentPageNum}`;
+      if (currentPageNum <= 1) btnPrevPage.disabled = true;
+    }
+
     const docTitle = document.getElementById('docTitle');
     if (customTitle) {
       docTitle.textContent = customTitle;
-    } else {
-      // Extract page name from URL
-      const match = pdfUrl.match(/page_(\d+)\.pdf/);
-      if (match) {
-        docTitle.textContent = `அரசுப் பாடநூல் • பக்கம் ${parseInt(match[1])}`;
-      }
+    } else if (match) {
+      docTitle.textContent = `இயல் பக்கம் ${currentPageNum}`;
     }
 
     let pdfDoc = null;
     let baseViewport = null;
     let currentScale = 1.0;
+    let isFitToWidthMode = true; // Auto-fit width responsive mode by default!
     let isRendering = false;
     let renderPending = false;
 
@@ -284,9 +342,23 @@
     const canvas = document.getElementById('pdfCanvas');
     const ctx = canvas.getContext('2d');
     const zoomLabel = document.getElementById('zoomLabel');
+    const btnFitWidth = document.getElementById('btnFitWidth');
     const loadingOverlay = document.getElementById('loadingOverlay');
     const cacheStatusDot = document.getElementById('cacheStatusDot');
     const canvasWrapper = document.getElementById('canvasWrapper');
+
+    // ----------------------------------------------------
+    // Page Turners Navigation (Standalone Mode)
+    // ----------------------------------------------------
+    function navigatePage(direction) {
+      const targetPage = currentPageNum + direction;
+      if (targetPage < 1) return;
+      const targetStr = targetPage.toString().padStart(2, '0');
+      const newUrl = pdfUrl.replace(/page_\d+\.pdf/, `page_${targetStr}.pdf`);
+      const newSearch = new URLSearchParams(window.location.search);
+      newSearch.set('pdf', newUrl);
+      window.location.search = newSearch.toString();
+    }
 
     // ----------------------------------------------------
     // IndexedDB Cache Layer (100% Offline, Zero Redundant Downloads)
@@ -359,17 +431,32 @@
       const page = await pdfDoc.getPage(1);
       baseViewport = page.getViewport({ scale: 1.0 });
 
-      // Automatically calculate initial scale to fit available width
-      calculateInitialScale();
+      // Automatically calculate scale to fit current screen width
+      calculateAutoFitScale();
 
       await renderPage(currentScale);
       loadingOverlay.classList.add('hidden');
     }
 
-    function calculateInitialScale() {
-      const availableWidth = scrollArea.clientWidth - 48;
-      currentScale = Math.min(1.8, Math.max(0.6, availableWidth / baseViewport.width));
+    function calculateAutoFitScale() {
+      const availableWidth = scrollArea.clientWidth - 32;
+      currentScale = Math.min(2.0, Math.max(0.45, availableWidth / baseViewport.width));
     }
+
+    // ----------------------------------------------------
+    // Dynamic Responsive Resizing (Orientation & Window Changes)
+    // ----------------------------------------------------
+    let resizeTimer = null;
+    function handleResponsiveResize() {
+      if (!baseViewport || !isFitToWidthMode) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        calculateAutoFitScale();
+        renderPage(currentScale);
+      }, 150);
+    }
+    window.addEventListener('resize', handleResponsiveResize);
+    window.addEventListener('orientationchange', handleResponsiveResize);
 
     // ----------------------------------------------------
     // HD Retina Canvas Rendering
@@ -385,7 +472,7 @@
       const dpr = window.devicePixelRatio || 1;
       const viewport = page.getViewport({ scale: scale });
 
-      // Internal resolution (Razor-sharp vector pixels)
+      // Canvas internal resolution (Vector Crisp)
       canvas.width = Math.floor(viewport.width * dpr);
       canvas.height = Math.floor(viewport.height * dpr);
 
@@ -396,7 +483,7 @@
       canvasWrapper.style.height = Math.floor(viewport.height) + 'px';
 
       // Update draggable cursor class when zoomed in
-      if (scale > 1.1) {
+      if (scale > 1.15) {
         canvasWrapper.classList.add('draggable');
       } else {
         canvasWrapper.classList.remove('draggable');
@@ -420,9 +507,11 @@
     }
 
     // ----------------------------------------------------
-    // Zoom & Fit Controls
+    // Zoom Controls
     // ----------------------------------------------------
     function zoomChange(delta) {
+      isFitToWidthMode = false;
+      btnFitWidth.classList.remove('active');
       const newScale = Math.max(0.4, Math.min(4.0, currentScale + delta));
       if (Math.abs(newScale - currentScale) > 0.04) {
         currentScale = newScale;
@@ -430,26 +519,53 @@
       }
     }
 
-    function fitToWidth() {
-      calculateInitialScale();
+    function toggleFitToWidth() {
+      isFitToWidthMode = true;
+      btnFitWidth.classList.add('active');
+      calculateAutoFitScale();
       renderPage(currentScale);
     }
 
-    function resetZoom() {
-      currentScale = 1.0;
+    function resetZoom(target) {
+      isFitToWidthMode = false;
+      btnFitWidth.classList.remove('active');
+      currentScale = target || 1.0;
       renderPage(currentScale);
     }
 
     // ----------------------------------------------------
-    // Google Drive Feature 1: Pop-Out New Window / Tab
+    // Pop-out / Open in New Window
     // ----------------------------------------------------
     function openPopoutNewTab() {
-      const currentUrl = window.location.href;
-      window.open(currentUrl, '_blank');
+      window.open(window.location.href, '_blank');
     }
 
     // ----------------------------------------------------
-    // Google Drive Feature 2: Download PDF
+    // Smart Fullscreen (Handles iframe cross-origin gracefully!)
+    // ----------------------------------------------------
+    function smartFullscreen() {
+      try {
+        if (!document.fullscreenElement) {
+          if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen().catch(() => {
+              // If iframe permission blocked, open full tab fallback
+              window.open(window.location.href, '_blank');
+            });
+          } else {
+            window.open(window.location.href, '_blank');
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      } catch (e) {
+        window.open(window.location.href, '_blank');
+      }
+    }
+
+    // ----------------------------------------------------
+    // Download PDF
     // ----------------------------------------------------
     function downloadPdf() {
       const a = document.createElement('a');
@@ -461,26 +577,13 @@
     }
 
     // ----------------------------------------------------
-    // Google Drive Feature 3: Fullscreen Toggle
-    // ----------------------------------------------------
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
-      }
-    }
-
-    // ----------------------------------------------------
-    // Google Drive Feature 4: Mouse Drag / Pan when Zoomed In
+    // Mouse Drag / Pan when Zoomed In
     // ----------------------------------------------------
     let isMouseDown = false;
     let startX, startY, scrollLeft, scrollTop;
 
     scrollArea.addEventListener('mousedown', (e) => {
-      if (currentScale <= 1.05) return;
+      if (currentScale <= 1.1) return;
       isMouseDown = true;
       canvasWrapper.classList.add('grabbing');
       startX = e.pageX - scrollArea.offsetLeft;
@@ -510,9 +613,7 @@
       scrollArea.scrollTop = scrollTop - walkY;
     });
 
-    // ----------------------------------------------------
-    // Start Loading
-    // ----------------------------------------------------
+    // Start
     loadPdfDocument().catch(err => {
       console.error(err);
       loadingOverlay.innerHTML = '<div style="color:#ef4444;font-weight:700;">பக்கம் ஏற்றுவதில் பிழை ஏற்பட்டது.</div>';
