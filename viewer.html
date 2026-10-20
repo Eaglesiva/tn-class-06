@@ -273,7 +273,7 @@
     <div class="header-right">
       <span class="status-dot" id="cacheStatusDot" title="ஆஃப்லைன் சேமிப்பு நிலை"></span>
       <button class="icon-action-btn" onclick="downloadPdf()" title="PDF கோப்பைப் பதிவிறக்கு (Download)">⬇️</button>
-      <button class="icon-action-btn" onclick="smartFullscreen()" title="முழுத்திரை (Fullscreen)">⛶</button>
+      <button class="icon-action-btn" id="btnFullscreen" onclick="smartFullscreen()" title="முழுத்திரை (Fullscreen)">⛶</button>
       <!-- Pop-out button (Visible ONLY when inside an iframe/Blogger; hidden in standalone tab!) -->
       <button class="icon-action-btn" id="btnPopout" onclick="openPopoutNewTab()" title="புதிய தாவலில் திற (Open in new tab / Pop-out)">↗️</button>
     </div>
@@ -338,6 +338,16 @@
     let isRendering = false;
     let renderPending = false;
 
+    // Check stored user zoom preference from this reading session
+    const savedZoomMode = sessionStorage.getItem('tn_reader_zoom_mode');
+    if (savedZoomMode && savedZoomMode !== 'auto') {
+      const parsed = parseFloat(savedZoomMode);
+      if (!isNaN(parsed) && parsed >= 0.4 && parsed <= 4.0) {
+        currentScale = parsed;
+        isFitToWidthMode = false;
+      }
+    }
+
     const scrollArea = document.getElementById('scrollArea');
     const canvas = document.getElementById('pdfCanvas');
     const ctx = canvas.getContext('2d');
@@ -347,8 +357,12 @@
     const cacheStatusDot = document.getElementById('cacheStatusDot');
     const canvasWrapper = document.getElementById('canvasWrapper');
 
+    if (!isFitToWidthMode) {
+      btnFitWidth.classList.remove('active');
+    }
+
     // ----------------------------------------------------
-    // Page Turners Navigation (Standalone Mode)
+    // Page Turners Navigation (Standalone Mode - Retains Zoom!)
     // ----------------------------------------------------
     function navigatePage(direction) {
       const targetPage = currentPageNum + direction;
@@ -431,8 +445,10 @@
       const page = await pdfDoc.getPage(1);
       baseViewport = page.getViewport({ scale: 1.0 });
 
-      // Automatically calculate scale to fit current screen width
-      calculateAutoFitScale();
+      // Automatically calculate scale to fit current screen width if in auto-fit mode
+      if (isFitToWidthMode) {
+        calculateAutoFitScale();
+      }
 
       await renderPage(currentScale);
       loadingOverlay.classList.add('hidden');
@@ -507,7 +523,7 @@
     }
 
     // ----------------------------------------------------
-    // Zoom Controls
+    // Zoom Controls & Session Memory
     // ----------------------------------------------------
     function zoomChange(delta) {
       isFitToWidthMode = false;
@@ -515,6 +531,7 @@
       const newScale = Math.max(0.4, Math.min(4.0, currentScale + delta));
       if (Math.abs(newScale - currentScale) > 0.04) {
         currentScale = newScale;
+        sessionStorage.setItem('tn_reader_zoom_mode', currentScale.toFixed(2));
         renderPage(currentScale);
       }
     }
@@ -522,6 +539,7 @@
     function toggleFitToWidth() {
       isFitToWidthMode = true;
       btnFitWidth.classList.add('active');
+      sessionStorage.setItem('tn_reader_zoom_mode', 'auto');
       calculateAutoFitScale();
       renderPage(currentScale);
     }
@@ -530,39 +548,60 @@
       isFitToWidthMode = false;
       btnFitWidth.classList.remove('active');
       currentScale = target || 1.0;
+      sessionStorage.setItem('tn_reader_zoom_mode', currentScale.toFixed(2));
       renderPage(currentScale);
     }
 
     // ----------------------------------------------------
-    // Pop-out / Open in New Window
+    // Pop-out / Open in New Window (Pure Top-Level Context)
     // ----------------------------------------------------
     function openPopoutNewTab() {
-      window.open(window.location.href, '_blank');
+      window.open(window.location.href, '_blank', 'noopener');
     }
 
     // ----------------------------------------------------
-    // Smart Fullscreen (Handles iframe cross-origin gracefully!)
+    // Smart Fullscreen (Native + Multi-Vendor + Popout Fallback)
     // ----------------------------------------------------
     function smartFullscreen() {
-      try {
-        if (!document.fullscreenElement) {
-          if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen().catch(() => {
-              // If iframe permission blocked, open full tab fallback
-              window.open(window.location.href, '_blank');
-            });
-          } else {
-            window.open(window.location.href, '_blank');
+      const docEl = document.documentElement;
+      const isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+
+      if (!isFull) {
+        const rfs = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
+        if (rfs) {
+          try {
+            const p = rfs.call(docEl);
+            if (p && p.catch) {
+              p.catch(() => {
+                // If denied by parent iframe, open independent full tab
+                window.open(window.location.href, '_blank', 'noopener');
+              });
+            }
+          } catch (e) {
+            window.open(window.location.href, '_blank', 'noopener');
           }
         } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          }
+          window.open(window.location.href, '_blank', 'noopener');
         }
-      } catch (e) {
-        window.open(window.location.href, '_blank');
+      } else {
+        const efs = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        if (efs) {
+          efs.call(document);
+        }
       }
     }
+
+    // Listen for fullscreen change to update icon/tooltip
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('btnFullscreen');
+      if (document.fullscreenElement) {
+        btn.textContent = '✕';
+        btn.title = 'முழுத்திரையிலிருந்து வெளியேறு (Exit Fullscreen)';
+      } else {
+        btn.textContent = '⛶';
+        btn.title = 'முழுத்திரை (Fullscreen)';
+      }
+    });
 
     // ----------------------------------------------------
     // Download PDF
