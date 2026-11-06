@@ -2,7 +2,10 @@
 
 ஆதாரம்: [2025 SCERT ஆறாம் வகுப்பு தமிழ் — இரண்டாம் பருவம்](https://huggingface.co/datasets/Joemn/TamilNadu-State-board-books-2025-Tamil-and-english-versions/blob/main/6th-standard/Tamil/Class_6_Tamil_Tamil_Tamil_-_Term_2_-_2025_Edition.md)
 
-## மதிப்பீடு
+## மதிப்பீடு — ஒரு சொல் விடை
+1. **ஃ (ஆய்த எழுத்து)** — ஆய்த எழுத்து சொல்லின் இடையில் மட்டுமே வரும்.
+
+## மதிப்பீடு — விளக்க வினா
 - **விடைக்குறிப்பு:**
 - **சாதாரண விடை:**
 - **விரிவான விடை:**
