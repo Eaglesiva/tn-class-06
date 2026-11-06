@@ -559,8 +559,8 @@
       "கண்ணில்",
       "தம்பி"
     ],
-    "correctOptionIndex": 1,
-    "explanation": "வந்தான் என்ற சொல்லில் மெல்லின எழுத்திற்குரிய இன வல்லின எழுத்து இணை இல்லை.",
+    "correctOptionIndex": 2,
+    "explanation": "‘கண்ணில்’ என்ற சொல்லில் மெல்லின எழுத்தான ண்-க்கு உரிய வல்லின இன எழுத்தான ட் இடம்பெறவில்லை.",
     "sourceUrl": "https://huggingface.co/datasets/Joemn/TamilNadu-State-board-books-2025-Tamil-and-english-versions/blob/main/6th-standard/Tamil/Class_6_Tamil_Tamil_Tamil_-_Term_2_-_2025_Edition.md",
     "sourceName": "2025 SCERT Class 6 Tamil Term 2 — இன எழுத்துகள்",
     "additionalSourceUrls": [

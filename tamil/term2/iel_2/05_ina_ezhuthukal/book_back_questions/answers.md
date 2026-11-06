@@ -3,7 +3,7 @@
 ஆதாரம்: [2025 SCERT ஆறாம் வகுப்பு தமிழ் — இரண்டாம் பருவம்](https://huggingface.co/datasets/Joemn/TamilNadu-State-board-books-2025-Tamil-and-english-versions/blob/main/6th-standard/Tamil/Class_6_Tamil_Tamil_Tamil_-_Term_2_-_2025_Edition.md)
 
 ## மதிப்பீடு
-1. **ஆ) வந்தான்**
+1. **இ) கண்ணில்**
 2. **ஆ) வென்ரான்** (சரியான எழுத்துவடிவம்: வென்றான்.)
 
 ## பிழை திருத்தம்
