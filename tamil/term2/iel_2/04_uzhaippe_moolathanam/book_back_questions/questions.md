@@ -1,8 +1,11 @@
-# 6-ஆம் வகுப்பு தமிழ் - TERM2 - 10 Uzhaippe Moolathanam
-## பாடநூல் மதிப்பீடு வினாக்கள் (வினாக்கள் மட்டும்)
+# இயல் 2.4 — உழைப்பே மூலதனம்
 
-> **மூலச் சான்று (Source Reference):** [HTML Page](file:///e:/19.03.26/new%20project/tn_school_books/6th/tamil/term2/10_uzhaippe_moolathanam/book_back_questions/questions.md)
+ஆதாரம்: [2025 SCERT ஆறாம் வகுப்பு தமிழ் — இரண்டாம் பருவம்](https://huggingface.co/datasets/Joemn/TamilNadu-State-board-books-2025-Tamil-and-english-versions/blob/main/6th-standard/Tamil/Class_6_Tamil_Tamil_Tamil_-_Term_2_-_2025_Edition.md)
 
----
+## கற்பவை கற்றபின்
+1. உழைப்பே மூலதனம் கதையை வகுப்பில் நாடகமாக நடித்துக் காட்டுக.
+2. நீங்கள் எழிலனாக இருந்திருந்தால் என்ன செய்திருப்பீர்கள்? பேசுக.
+3. கதாபாத்திரங்களில் உங்களைக் கவர்ந்தவர் யார்? ஏன்?
 
-> **பாடநூல் தகவல் குறிப்பு:** இப்பாடத்திற்குப் பாடநூல் மதிப்பீட்டு வினாக்கள் பாடநூலில் தனியாக வழங்கப்படவில்லை.
+## சுருக்கி எழுதுக
+உழைப்பே மூலதனம் கதையைச் சுருக்கி எழுதுக.
